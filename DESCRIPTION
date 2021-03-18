@@ -1,11 +1,10 @@
 Package: SVF
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Support Vector Frontier
 Version: 0.1.0
-Author: Who wrote it
+Author: Dasha Ivanova, Daniel Valero-Carreras, Juan Aparicio and Nadia M. Guerrero
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Support Vector Frontier (SVF) is a machine learning technique, based on Support Vector Machines (SVM), used for the estimation of production functions. This technique allows the determination of a production function, satisfying the usual axioms of microeconomics (upper enveloping of the data, monotonicity and concavity) through a data-driven approach, like machine learning techniques, generating a step function as a predictor at a first stage. At a second stage, the convexification of the step function generates a piece-wise linear predictor of the production function. These shapes are similar to the estimators derived from FDH and DEA techniques but they do not suffer the problem of overfitting that it affects to these methods.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
