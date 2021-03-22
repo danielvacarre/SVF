@@ -25,6 +25,7 @@ transformation <- function(x_j, t_l_j){
 #'
 #' Función que crea las particiones de cada dimensión. Coge cada dimensión de inputs y la trocea en d particiones equidistantes
 #'
+#'
 #' @param x:
 #' @param d:
 #'
@@ -86,5 +87,7 @@ create_matrix_partitions <- function(x,d){
                   grid_points=grid_points)
   return(salidas)
 }
+
+
 
 
