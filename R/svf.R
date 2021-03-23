@@ -88,6 +88,17 @@ create_matrix_partitions <- function(x,d){
   return(salidas)
 }
 
+#Aqui debería estar:
+  #calculate_cv_mse
+  #calculate_pos_phi
+  #calculate_value_phi
+  #cross_validation
+  #estimacion
+  #modify_model
+  #svf
+  #svf_lp
+  #transformation
+  #dataframe_d
 
 
 
