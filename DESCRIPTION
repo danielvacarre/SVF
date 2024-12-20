@@ -12,10 +12,9 @@ Description: Support Vector Frontier (see Valero-Carreras et al., 2022) (SVF) is
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10),
-    Rcplex
 Imports:
   ggplot2
 Suggests:
