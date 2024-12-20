@@ -1,11 +1,26 @@
 Package: SVF
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Support Vector Frontiers
+Version: 1
+Authors@R: 
+    c(person("Daniel", "Valero-Carreras", "dvalero@ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "YOUR-ORCID-ID"))
+      person("Salvador", "Monreal-Campos", "smonreal5@alu.ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "YOUR-ORCID-ID")),
+      person("Antonio Jesús", "Banegas-Luna", "abengas.ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "YOUR-ORCID-ID"))
+           )
+Description: Support Vector Frontier (see Valero-Carreras et al., 2022) (SVF) is a 
+    machine learning technique, based on Support Vector Machines (SVM), 
+    used for the estimation of production functions..
+License: MIT + file LICENSE
 Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Depends: 
+    R (>= 2.10),
+    Rcplex
+Imports:
+  ggplot2
+Suggests:
+    testthat (>= 3.0.0)
 LazyData: true
+Config/testthat/edition: 3
+URL: https://github.com/danielvacarre/SVF
+BugReports: https://github.com/danielvacarre/SVF/issues
