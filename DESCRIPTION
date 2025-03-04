@@ -2,21 +2,21 @@ Package: SVF
 Title: Support Vector Frontiers
 Version: 1
 Authors@R: 
-    c(person("Daniel", "Valero-Carreras", "dvalero@ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "YOUR-ORCID-ID"))
+    c(person("Daniel", "Valero-Carreras", "dvalero@ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9025-9950"))
       person("Salvador", "Monreal-Campos", "smonreal5@alu.ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "YOUR-ORCID-ID")),
-      person("Antonio Jesús", "Banegas-Luna", "abengas.ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "YOUR-ORCID-ID"))
+      person("Antonio Jesús", "Banegas-Luna", "abengas.ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1158-8877"))
            )
 Description: Support Vector Frontier (see Valero-Carreras et al., 2022) (SVF) is a 
     machine learning technique, based on Support Vector Machines (SVM), 
-    used for the estimation of production functions..
+    used for the estimation of production functions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: 
-    R (>= 2.10),
+    R (>= 2.10)
 Imports:
-  ggplot2
+  dplyr, ggplot2
 Suggests:
     testthat (>= 3.0.0)
 LazyData: true
