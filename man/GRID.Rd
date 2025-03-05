@@ -2,42 +2,40 @@
 % Please edit documentation in R/grid.R
 \name{GRID}
 \alias{GRID}
-\title{Clase GRID para modelo SVF}
+\title{GRID Class for SVF model}
 \usage{
 GRID(data, inputs, outputs, d)
 }
 \arguments{
-\item{data}{DataFrame con el conjunto de datos sobre los que se construye el grid.}
+\item{data}{DataFrame with the dataset on which the grid is built.}
 
-\item{inputs}{Listado de inputs.}
+\item{inputs}{List of inputs.}
 
-\item{outputs}{Listado de outputs.}
+\item{outputs}{List of outputs.}
 
-\item{d}{número de particiones en las que se divide el grid.}
+\item{d}{Number of partitions in which the grid is divided.}
 }
 \description{
-Esta clase representa un grid sobre el que se realiza el modelo SVF.
-Un grid es una partición del espacio de los inputs dividido por celdas.
+This class represents a grid over which the SVF model is applied.
+A grid is a partition of the input space divided into cells.
 }
 \details{
-Para crear un objeto GRID, proporcione un DataFrame con los datos,
-los nombres de las variables de entrada (inputs) y salida (outputs), y
-el número de particiones (d).
+To create a GRID object, provide a DataFrame with the data,
+the names of the input (inputs) and output (outputs) variables, and
+the number of partitions (d).
 }
 \section{Fields}{
 
 \describe{
-\item{\code{data_grid}}{Grid de datos, inicialmente NULL.}
+\item{\code{data_grid}}{Data grid, initially NULL.}
 
-\item{\code{knot_list}}{Lista de nodos del grid, inicialmente NULL.}
+\item{\code{knot_list}}{List of grid nodes, initially NULL.}
 }}
 
 \examples{
-data <- data.frame(x = rnorm(10), y = rnorm(10))
-grid <- GRID(data, inputs = c("x"), outputs = c("y"), d = 4)
+data <- data.frame(x = sample(1:10, 4, replace = TRUE),
+                   y = sample(1:10, 4, replace = TRUE))
+grid <- GRID(data, inputs = c("x"), outputs = c("y"), d = 2)
 print(grid)
 
-data <- data.frame(x = rnorm(10), y = rnorm(10))
-grid <- GRID(data, inputs = c("x"), outputs = c("y"), d = 4)
-print(grid)
 }

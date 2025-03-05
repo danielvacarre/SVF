@@ -2,36 +2,31 @@
 % Please edit documentation in R/grid.R
 \name{transformation}
 \alias{transformation}
-\title{Transformación de valores en el GRID}
+\title{Transformation of values in the GRID}
 \usage{
 transformation(x_i, t_k)
 }
 \arguments{
-\item{x_i}{Valor de la celda a evaluar.}
+\item{x_i}{Value of the cell to evaluate.}
 
-\item{t_k}{Valor del nodo con el que se quiere comparar.}
+\item{t_k}{Value of the node to compare with.}
 }
 \value{
-Resultado de la comparación: 1, 0, -1.
+Result of the comparison: 1, 0, -1.
 }
 \description{
-Esta función evalúa si el valor de una observación es mayor, igual,
-o menor que el valor de un nodo en el grid. Devuelve 1 si es mayor,
-0 si es igual, y -1 si es menor.
+This function evaluates whether the value of an observation is greater than, equal to,
+or less than the value of a node in the grid. It returns 1 if greater,
+0 if equal, and -1 if less.
 }
 \examples{
-# Evaluate if an observation is less than the grid node value
 result <- transformation(2, 5)
 cat("Transformation result:", result, "\n")
-# Output: -1
 
-# Evaluate if an observation is equal to the grid node value
 result <- transformation(3, 3)
 cat("Transformation result:", result, "\n")
-# Output: 0
 
-# Evaluate if an observation is greater than the grid node value
 result <- transformation(4, 2)
 cat("Transformation result:", result, "\n")
-# Output: 1
+
 }

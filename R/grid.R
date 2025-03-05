@@ -60,13 +60,16 @@ GRID <- function(data, inputs, outputs, d) {
 #'
 #'grid_instance$knot_list <- list(list(1, 2.5, 4), list(2, 3, 4), list(1,2,3))
 #'dmu <- c(3, 5, 1)
-#'position <- search_dmu.GRID(grid_instance, dmu)
+#'position <- search_dmu_grid(grid_instance, dmu)
 #'
 #'print(paste("Position in the grid: (", paste(position, collapse = ", "), ")", sep = ""))
 #'
 #' @export
-search_dmu.GRID <- function(grid, dmu) {
-  if (is.null(grid$knot_list)) stop("knot_list is NULL. Ensure the grid has been initialized properly.")
+search_dmu_grid<- function(grid, dmu) {
+  if (!inherits(grid, "GRID")) stop("'grid' must be a GRID object.")
+  if (is.null(grid$knot_list)) stop("'knot_list' is NULL. Ensure the grid has been initialized.")
+  if (length(dmu) != length(grid$knot_list))
+    stop("Length of 'dmu' must match the number of grid dimensions.")
 
   r <- lapply(grid$knot_list, unlist)
   cell <- numeric(length(dmu))
