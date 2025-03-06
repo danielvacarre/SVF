@@ -81,3 +81,80 @@ get_estimation_svf <- function(svf, dmu) {
 
   return(prediction_list)
 }
+
+#' Prints the optimization model in a human-readable format
+#'
+#' This function prints the optimization problem of the SSVF model in a format similar to the one you provided.
+#' It is fully modular, meaning it works for any SSVF optimization problem.
+#'
+#' @param svf SSVF object with the trained model.
+#' @param bounds A list of bounds for each variable, e.g., list(c(0, 10), c(1, 5)).
+#'
+#' @export
+print_ssvf_model <- function(svf, bounds = NULL) {
+  # Ensure the model has been trained
+  if (is.null(svf$model)) {
+    stop("The model has not been trained. Please run `train_ssvf` first.")
+  }
+
+  # Retrieve the number of outputs, number of variables and number of observations
+  n_out <- length(svf$outputs)
+  n_var <- length(svf$grid$data_grid$phi[[1]][[1]])
+  n_obs <- nrow(svf$data)
+
+  # Create variable names for 'w' and 'xi' based on the sizes
+  var_names <- c()
+
+  # Generate variable names for w (weights) and xi (slack variables)
+  for (out in 1:n_out) {
+    for (var in 1:n_var) {
+      var_names <- c(var_names, paste("w", out, var, sep = "_"))
+    }
+  }
+
+  for (out in 1:n_out) {
+    for (obs in 1:n_obs) {
+      var_names <- c(var_names, paste("xi", out, obs, sep = "_"))
+    }
+  }
+
+  # Print the objective function (maximize)
+  cat("Maximize\n")
+  obj_terms <- sapply(1:length(svf$model$cvec), function(i) {
+    paste(sprintf("%.2f %s", svf$model$cvec[i], var_names[i]), collapse = " + ")
+  })
+  cat(" obj:", paste(obj_terms, collapse = " + "), "\n")
+
+  # Print the constraints (Subject To)
+  cat("Subject To\n")
+  n_constraints <- length(svf$model$bvec)
+  for (i in 1:n_constraints) {
+    constraint_terms <- sapply(1:ncol(svf$model$Amat), function(j) {
+      paste(sprintf("%.2f %s", svf$model$Amat[i, j], var_names[j]), collapse = " + ")
+    })
+    cat(sprintf(" c%d: %s <= %.2f\n", i, paste(constraint_terms, collapse = " + "), svf$model$bvec[i]))
+  }
+
+  # Print the bounds (Bounds)
+  if (!is.null(bounds)) {
+    cat("Bounds\n")
+    for (i in 1:length(bounds)) {
+      cat(sprintf(" %.2f <= %s <= %.2f\n", bounds[[i]][1], var_names[i], bounds[[i]][2]))
+    }
+  } else {
+    cat("Bounds\n")
+    for (i in 1:length(var_names)) {
+      cat(sprintf(" 0 <= %s <= Inf\n", var_names[i]))
+    }
+  }
+
+  # Print general variables (General)
+  cat("General\n")
+  for (i in 1:length(var_names)) {
+    cat(sprintf(" %s\n", var_names[i]))  # Assuming all variables are general
+  }
+
+  # End the model
+  cat("End\n")
+}
+
