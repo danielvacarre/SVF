@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+SVF.Rproj
+^\.git
+^\.Rproj\.user
+^\.gitignore$

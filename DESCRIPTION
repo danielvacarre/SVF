@@ -2,10 +2,12 @@ Package: SVF
 Title: Support Vector Frontiers
 Version: 1.0.0
 Authors@R: 
-    c(person("Daniel", "Valero-Carreras", email = "dvalero@ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "https://orcid.org/0000-0002-9025-9950")),
+    c(person("Daniel", "Valero-Carreras", email = "dvalero@ucam.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9025-9950")),
       person("Salvador", "Monreal-Campos", email = "smonreal5@alu.ucam.edu", role = c("aut")),
-      person("Antonio Jesús", "Banegas-Luna", email = "abengas@ucam.edu", role = c("aut"), comment = c(ORCID = "https://orcid.org/0000-0003-1158-8877"))
+      person("Antonio Jesús", "Banegas-Luna", email = "abengas@ucam.edu", role = c("aut"), comment = c(ORCID = "0000-0003-1158-8877"))
     )
+Author: Daniel Valero-Carreras [aut, cre] (<https://orcid.org/0000-0002-9025-9950>), Salvador Monreal-Campos [aut], Antonio Jesús Banegas-Luna [aut] (<https://orcid.org/0000-0003-1158-8877>)
+Maintainer: Daniel Valero-Carreras <dvalero@ucam.edu>
 Description: Support Vector Frontier (see Valero-Carreras et al., 2022) (SVF) is a 
     machine learning technique, based on Support Vector Machines (SVM), 
     used for the estimation of production functions.
@@ -19,7 +21,6 @@ Imports:
     lpSolve
 Suggests:
     testthat (>= 3.0.0)
-LazyData: true
 Config/testthat/edition: 3
 URL: https://github.com/danielvacarre/SVF
 BugReports: https://github.com/danielvacarre/SVF/issues
