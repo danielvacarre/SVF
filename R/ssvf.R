@@ -62,7 +62,7 @@ train_ssvf <- function(svf) {
 
   # Create the model grid
   svf$grid <- create_grid_svfgrid(SVFGrid(svf$data, svf$inputs, svf$outputs, svf$d))
-  n_var <- length(svf$grid$data_grid$phi[[1]][[1]])
+  n_var <- length(svf$grid$data_grid$phi[[1]][[1]][[1]])
 
   total_variables <- n_out * n_var + n_out * n_obs
 
@@ -76,7 +76,7 @@ train_ssvf <- function(svf) {
 
   for (out in 1:n_out) {
     for (obs in 1:n_obs) {
-      phi_vector <- svf$grid$data_grid$phi[[obs]][[out]]
+      phi_vector <- svf$grid$data_grid$phi[[obs]][[1]][[out]]
       row_index1 <- (out - 1) * 2 * n_obs + (obs - 1) * 2 + 1
       row_index2 <- row_index1 + 1
 
@@ -129,7 +129,7 @@ solve_ssvf <- function(svf) {
 
     # Extract the solutions for the 'w' and 'xi' variables
     n_out <- length(svf$outputs)
-    n_var <- length(svf$grid$data_grid$phi[[1]][[1]])
+    n_var <- length(svf$grid$data_grid$phi[[1]][[1]][[1]])
     n_obs <- nrow(svf$data)
 
     n_w_vars <- n_out * n_var

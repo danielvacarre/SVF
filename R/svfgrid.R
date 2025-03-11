@@ -53,7 +53,7 @@ SVFGrid <- function(data, inputs, outputs, d) {
     inputs = inputs,
     outputs = outputs,
     d = d,
-    df_grid = data.frame(),
+    grid_properties = data.frame(),
     data_grid = data.frame()
   )
   class(grid) <- c("SVFGrid", "GRID")
@@ -108,8 +108,8 @@ create_grid_svfgrid <- function(grid) {
     values <- values[, ncol(values):1]
   }
 
-  grid$df_grid <- list(id_cells = id_cells, values = values, phi = vector("list", nrow(values)))
-  grid <- calculate_df_grid_svfgrid(grid)
+  grid$grid_properties <- list(id_cells = id_cells, values = values, phi = vector("list", nrow(values)))
+  grid <- calculate_grid_properties_svfgrid(grid)
   grid <- calculate_data_grid_svfgrid(grid)
 
   return(grid)
@@ -140,8 +140,10 @@ create_grid_svfgrid <- function(grid) {
 #'
 #' @export
 calculate_dmu_phi_svfgrid <- function(grid, cell) {
-  id_cells <- grid$df_grid$id_cells
-  phi <- apply(id_cells, 1, function(row) all(cell >= row))
+  id_cells <- grid$grid_properties$id_cells
+  phi <- apply(id_cells, 1, function(row) as.numeric(all(cell >= row)))
+  n_outputs <- length(grid$outputs)
+  phi <- replicate(n_outputs, phi, simplify = FALSE)
   return(list(phi))
 }
 
@@ -162,20 +164,20 @@ calculate_dmu_phi_svfgrid <- function(grid, cell) {
 #' d <- 2
 #' grid <- SVFGrid(data, inputs, outputs, d)
 #' grid <- create_grid_svfgrid(grid)
-#' grid <- calculate_df_grid_svfgrid(grid)
+#' grid <- calculate_grid_properties_svfgrid(grid)
 #'
 #' @export
-calculate_df_grid_svfgrid <- function(grid) {
-  n <- nrow(grid$df_grid$id_cells)
+calculate_grid_properties_svfgrid <- function(grid) {
+  n <- nrow(grid$grid_properties$id_cells)
 
-  grid$df_grid$phi <- lapply(seq_len(n), function(i) {
-    cell <- as.numeric(grid$df_grid$values[i, ])
+  grid$grid_properties$phi <- lapply(seq_len(n), function(i) {
+    cell <- as.numeric(grid$grid_properties$values[i, ])
     p <- search_dmu_grid(grid, cell)
     calculate_dmu_phi_svfgrid(grid, p)[[1]]
   })
 
-  grid$df_grid$c_cells <- lapply(seq_len(n), function(i) {
-    cell <- as.numeric(grid$df_grid$id_cells[i, ])
+  grid$grid_properties$c_cells <- lapply(seq_len(n), function(i) {
+    cell <- as.numeric(grid$grid_properties$id_cells[i, ])
     search_contiguous_cell(cell)
   })
 
