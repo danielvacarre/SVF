@@ -44,11 +44,11 @@ d_value <- 4
 
 svf_model <- SSVF(method, inputs, outputs, data, c_value, eps_value, d_value)
 
-svf_model <- train_ssvf(svf_model)
+svf_model <- train(svf_model)
 
-print_ssvf_model(svf_model)
+print_model(svf_model)
 
-svf_model <- solve_ssvf(svf_model)
+svf_model <- solve(svf_model)
 
 print(svf_model$solution$w)
 

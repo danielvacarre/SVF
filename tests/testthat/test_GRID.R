@@ -25,7 +25,7 @@ test_that("GRID fails with incorrect inputs", {
                "d must be a positive number")  # Error por d negativo
 })
 
-test_that("search_dmu_gridfinds correct cell positions", {
+test_that("search_dmufinds correct cell positions", {
   data <- data.frame(x = 1:4, y = 5:8)
   grid <- GRID(data, inputs = c("x"), outputs = c("y"), d = 2)
 
@@ -36,7 +36,7 @@ test_that("search_dmu_gridfinds correct cell positions", {
   )
 
   dmu <- c(3, 6)
-  position <- search_dmu_grid(grid, dmu)
+  position <- search_dmu(grid, dmu)
 
   expect_equal(position, c(3, 2))  # Verifica que la posición en la malla sea la esperada
 })

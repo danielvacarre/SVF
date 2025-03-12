@@ -77,10 +77,10 @@ SVFGrid <- function(data, inputs, outputs, d) {
 #' outputs <- c("y1")
 #' d <- 2
 #' grid_obj <- SVFGrid(data, inputs, outputs, d)
-#' grid_obj <- create_grid_svfgrid(grid_obj)
+#' grid_obj <- create_grid(grid_obj)
 #'
 #' @export
-create_grid_svfgrid <- function(grid) {
+create_grid <- function(grid) {
   x <- grid$data[, grid$inputs, drop = FALSE]
   n_dim <- ncol(x)
   knot_list <- list()
@@ -109,8 +109,8 @@ create_grid_svfgrid <- function(grid) {
   }
 
   grid$grid_properties <- list(id_cells = id_cells, values = values, phi = vector("list", nrow(values)))
-  grid <- calculate_grid_properties_svfgrid(grid)
-  grid <- calculate_data_grid_svfgrid(grid)
+  grid <- calculate_grid_properties(grid)
+  grid <- calculate_data_grid(grid)
 
   return(grid)
 }
@@ -133,13 +133,13 @@ create_grid_svfgrid <- function(grid) {
 #' outputs <- c("y")
 #' d <- 2
 #' grid <- SVFGrid(data, inputs, outputs, d)
-#' grid <- create_grid_svfgrid(grid)
+#' grid <- create_grid(grid)
 #' cell <- c(1)
-#' phi_result <- calculate_dmu_phi_svfgrid(grid, cell)
+#' phi_result <- calculate_dmu_phi(grid, cell)
 #' print(phi_result)
 #'
 #' @export
-calculate_dmu_phi_svfgrid <- function(grid, cell) {
+calculate_dmu_phi <- function(grid, cell) {
   id_cells <- grid$grid_properties$id_cells
   phi <- apply(id_cells, 1, function(row) as.numeric(all(cell >= row)))
   n_outputs <- length(grid$outputs)
@@ -163,17 +163,17 @@ calculate_dmu_phi_svfgrid <- function(grid, cell) {
 #' outputs <- c("y")
 #' d <- 2
 #' grid <- SVFGrid(data, inputs, outputs, d)
-#' grid <- create_grid_svfgrid(grid)
-#' grid <- calculate_grid_properties_svfgrid(grid)
+#' grid <- create_grid(grid)
+#' grid <- calculate_grid_properties(grid)
 #'
 #' @export
-calculate_grid_properties_svfgrid <- function(grid) {
+calculate_grid_properties <- function(grid) {
   n <- nrow(grid$grid_properties$id_cells)
 
   grid$grid_properties$phi <- lapply(seq_len(n), function(i) {
     cell <- as.numeric(grid$grid_properties$values[i, ])
-    p <- search_dmu_grid(grid, cell)
-    calculate_dmu_phi_svfgrid(grid, p)[[1]]
+    p <- search_dmu(grid, cell)
+    calculate_dmu_phi(grid, p)[[1]]
   })
 
   grid$grid_properties$c_cells <- lapply(seq_len(n), function(i) {
@@ -200,22 +200,22 @@ calculate_grid_properties_svfgrid <- function(grid) {
 #' outputs <- c("y")
 #' d <- 2
 #' grid <- SVFGrid(data, inputs, outputs, d)
-#' grid <- create_grid_svfgrid(grid)
-#' grid <- calculate_data_grid_svfgrid(grid)
+#' grid <- create_grid(grid)
+#' grid <- calculate_data_grid(grid)
 #'
 #' @export
-calculate_data_grid_svfgrid<- function(grid) {
+calculate_data_grid<- function(grid) {
   grid$data_grid <- grid$data[, c(grid$inputs, grid$outputs), drop = FALSE]
 
   grid$data_grid$phi <- lapply(seq_len(nrow(grid$data_grid)), function(i) {
     x <- as.numeric(grid$data_grid[i, grid$inputs])
-    p <- search_dmu_grid(grid, x)
-    calculate_dmu_phi_svfgrid(grid, p)
+    p <- search_dmu(grid, x)
+    calculate_dmu_phi(grid, p)
   })
 
   grid$data_grid$c_cells <- lapply(seq_len(nrow(grid$data_grid)), function(i) {
     x <- as.numeric(grid$data_grid[i, grid$inputs])
-    p <- search_dmu_grid(grid, x)
+    p <- search_dmu(grid, x)
     search_contiguous_cell(p)
   })
 

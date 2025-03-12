@@ -39,7 +39,7 @@ SVF <- function(method, inputs, outputs, data, C, eps, d) {
 #' @return A numeric vector with the estimations for each output.
 
 #' @export
-get_estimation_svf <- function(svf, dmu) {
+get_estimation <- function(svf, dmu) {
 
   if (!inherits(svf, "SVF")) stop("The 'svf' parameter must be an object of class 'SVF'.")
 
@@ -49,14 +49,14 @@ get_estimation_svf <- function(svf, dmu) {
 
   dmu <- as.numeric(dmu)
 
-  dmu_cell <- search_dmu_grid(svf$grid, dmu)
+  dmu_cell <- search_dmu(svf$grid, dmu)
 
   print(dmu_cell)
 
   if (-1 %in% dmu_cell) {
     phi <- matrix(0, nrow = length(svf$outputs), ncol = length(svf$solution$w[[1]]))
   } else {
-    phi <- calculate_dmu_phi_svfgrid(svf$grid, dmu_cell)[[1]]
+    phi <- calculate_dmu_phi(svf$grid, dmu_cell)[[1]]
   }
 
   estimation <- sapply(1:length(svf$outputs), function(out) {
@@ -75,7 +75,7 @@ get_estimation_svf <- function(svf, dmu) {
 #' @param bounds A list of bounds for each variable, e.g., list(c(0, 10), c(1, 5)).
 #'
 #' @export
-print_ssvf_model <- function(svf, bounds = NULL) {
+print_model <- function(svf, bounds = NULL) {
   # Ensure the model has been trained
   if (is.null(svf$model)) {
     stop("The model has not been trained. Please run `train_ssvf` first.")

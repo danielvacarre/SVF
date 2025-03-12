@@ -25,59 +25,59 @@ test_that("SVFGrid creates an object correctly", {
   expect_equal(grid_obj$d, d)
 })
 
-test_that("create_grid_svfgrid creates a grid correctly", {
+test_that("create_grid creates a grid correctly", {
   data <- create_test_data()
   inputs <- c("x1", "x2")
   outputs <- c("y1")
   d <- 2
   grid_obj <- SVFGrid(data, inputs, outputs, d)
 
-  grid_obj <- create_grid_svfgrid(grid_obj)
+  grid_obj <- create_grid(grid_obj)
 
   expect_true(!is.null(grid_obj$knot_list))
   expect_true(!is.null(grid_obj$grid_properties$id_cells))
   expect_true(!is.null(grid_obj$grid_properties$values))
 })
 
-test_that("calculate_grid_properties_svfgrid calculates grid properties correctly", {
+test_that("calculate_grid_properties calculates grid properties correctly", {
   data <- create_test_data()
   inputs <- c("x1", "x2")
   outputs <- c("y1")
   d <- 2
   grid_obj <- SVFGrid(data, inputs, outputs, d)
 
-  grid_obj <- create_grid_svfgrid(grid_obj)
-  grid_obj <- calculate_grid_properties_svfgrid(grid_obj)
+  grid_obj <- create_grid(grid_obj)
+  grid_obj <- calculate_grid_properties(grid_obj)
 
   expect_true(!is.null(grid_obj$grid_properties$phi))
   expect_true(!is.null(grid_obj$grid_properties$c_cells))
 })
 
-test_that("calculate_dmu_phi_svfgrid calculates phi correctly for a DMU", {
+test_that("calculate_dmu_phi calculates phi correctly for a DMU", {
   data <- create_test_data()
   inputs <- c("x1", "x2")
   outputs <- c("y1")
   d <- 2
   grid_obj <- SVFGrid(data, inputs, outputs, d)
 
-  grid_obj <- create_grid_svfgrid(grid_obj)
+  grid_obj <- create_grid(grid_obj)
   cell <- c(1, 2)
 
-  phi_result <- calculate_dmu_phi_svfgrid(grid_obj, cell)
+  phi_result <- calculate_dmu_phi(grid_obj, cell)
 
   expect_type(phi_result, "list")
   expect_equal(length(phi_result), 1)
 })
 
-test_that("calculate_data_grid_svfgrid calculates phi and c_cells correctly", {
+test_that("calculate_data_grid calculates phi and c_cells correctly", {
   data <- create_test_data()
   inputs <- c("x1", "x2")
   outputs <- c("y1")
   d <- 2
   grid_obj <- SVFGrid(data, inputs, outputs, d)
 
-  grid_obj <- create_grid_svfgrid(grid_obj)
-  grid_obj <- calculate_data_grid_svfgrid(grid_obj)
+  grid_obj <- create_grid(grid_obj)
+  grid_obj <- calculate_data_grid(grid_obj)
 
   expect_true(all(sapply(grid_obj$data_grid$phi, is.list)))
   expect_true(!is.null(grid_obj$data_grid$c_cells))

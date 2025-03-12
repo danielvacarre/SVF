@@ -32,7 +32,7 @@ test_that("SSVF creates an object correctly", {
   expect_equal(ssvf_obj$d, d_value)
 })
 
-test_that("train_ssvf prepares the model correctly", {
+test_that("train prepares the model correctly", {
   data <- create_test_data()
   method <- "ssvf"
   inputs <- c("x1", "x2")
@@ -42,7 +42,7 @@ test_that("train_ssvf prepares the model correctly", {
   d_value <- 4
 
   ssvf_obj <- SSVF(method, inputs, outputs, data, c_value, eps_value, d_value)
-  ssvf_obj <- train_ssvf(ssvf_obj)
+  ssvf_obj <- train(ssvf_obj)
 
   expect_true(!is.null(ssvf_obj$model))
   expect_true(!is.null(ssvf_obj$grid))
@@ -51,7 +51,7 @@ test_that("train_ssvf prepares the model correctly", {
   expect_equal(length(ssvf_obj$model$cvec), n_w + n_xi)
 })
 
-test_that("solve_ssvf solves the model correctly", {
+test_that("solve solves the model correctly", {
   data <- create_test_data()
   method <- "ssvf"
   inputs <- c("x1", "x2")
@@ -61,15 +61,15 @@ test_that("solve_ssvf solves the model correctly", {
   d_value <- 4
 
   ssvf_obj <- SSVF(method, inputs, outputs, data, c_value, eps_value, d_value)
-  ssvf_obj <- train_ssvf(ssvf_obj)
-  ssvf_obj <- solve_ssvf(ssvf_obj)
+  ssvf_obj <- train(ssvf_obj)
+  ssvf_obj <- solve(ssvf_obj)
 
   expect_true(!is.null(ssvf_obj$solution))
   expect_true(all(sapply(ssvf_obj$solution$w, is.numeric)))
   expect_true(all(sapply(ssvf_obj$solution$xi, is.numeric)))
 })
 
-test_that("get_estimation_svf calculates output estimations correctly", {
+test_that("get_estimation calculates output estimations correctly", {
   data <- create_test_data()
   method <- "ssvf"
   inputs <- c("x1", "x2")
@@ -79,17 +79,17 @@ test_that("get_estimation_svf calculates output estimations correctly", {
   d_value <- 4
 
   ssvf_obj <- SSVF(method, inputs, outputs, data, c_value, eps_value, d_value)
-  ssvf_obj <- train_ssvf(ssvf_obj)
-  ssvf_obj <- solve_ssvf(ssvf_obj)
+  ssvf_obj <- train(ssvf_obj)
+  ssvf_obj <- solve(ssvf_obj)
 
   dmu <- c(2, 3)  # Example DMU (input values)
-  estimation <- get_estimation_svf(ssvf_obj, dmu)
+  estimation <- get_estimation(ssvf_obj, dmu)
 
   expect_true(is.numeric(estimation))
   expect_equal(length(estimation), length(ssvf_obj$outputs))
 })
 
-test_that("print_ssvf_model prints the model correctly", {
+test_that("print_model prints the model correctly", {
   data <- create_test_data()
   method <- "ssvf"
   inputs <- c("x1", "x2")
@@ -99,10 +99,10 @@ test_that("print_ssvf_model prints the model correctly", {
   d_value <- 4
 
   ssvf_obj <- SSVF(method, inputs, outputs, data, c_value, eps_value, d_value)
-  ssvf_obj <- train_ssvf(ssvf_obj)
+  ssvf_obj <- train(ssvf_obj)
 
   # Capture the printed output
-  captured_output <- capture.output(print_ssvf_model(ssvf_obj))
+  captured_output <- capture.output(print_model(ssvf_obj))
 
   expect_true(length(captured_output) > 0)
   expect_true(any(grepl("Minimize", captured_output)))
